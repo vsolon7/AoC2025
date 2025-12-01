@@ -26,11 +26,11 @@ rotate2 :: DialPos -> Rotation -> (DialPos, Int)
 rotate2 dialPos rot =
   let (fullRot, fracRot) = rot `quotRem` _dialSize
       newDialPos = rotate dialPos fracRot
-      zeroPasses | (dialPos == 0) = 0
-                 | (dialPos + fracRot <= 0 || dialPos + fracRot >= _dialSize) = 1
-                 | otherwise = 0
+      passedZero | (dialPos == 0) = False
+                 | (dialPos + fracRot <= 0 || dialPos + fracRot >= _dialSize) = True
+                 | otherwise = False
   in
-      (newDialPos, abs fullRot + zeroPasses)
+      (newDialPos, abs fullRot + fromEnum passedZero)
 
 main :: IO ()
 main = do
