@@ -39,13 +39,16 @@ invalids d (start,end) = takeWhile (\x -> x <= end)
 -- it does this by just enumerating all invalid IDs of each 'duplication type', using the function above.
 allInvalids :: (Integer,Integer) -> [Integer]
 allInvalids (start,end) = nub $
-                          [2..numDigits end]
-                            >>= (\m -> invalids m (start,end))
+                          [2..numDigits end] >>= (\m -> invalids m (start,end))
 
 parseInput :: FilePath -> IO [(Integer,Integer)]
 parseInput file = do
   text <- TIO.readFile file
-  return $ map (\[x,y] -> (readT x, readT y)) . map (T.splitOn "-") . (T.splitOn ",") $ text
+  return $
+    map (\[x,y] -> (readT x, readT y))
+     . map (T.splitOn "-")
+     . (T.splitOn ",")
+     $ text
   where
     readT = read . T.unpack
 
