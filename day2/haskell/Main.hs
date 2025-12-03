@@ -31,7 +31,7 @@ minIID m x
 -- for example, for 121212, d is 3 and for 11231123, d is 2.
 -- lazy evaluation does this pretty efficiently
 invalids :: Integer -> (Integer,Integer) -> [Integer]
-invalids d (start,end) = takeWhile (\x -> x <= end)
+invalids d (start,end) = takeWhile (<= end)
                           . map (duplicate d)
                           $ [minIID d start..]
 
