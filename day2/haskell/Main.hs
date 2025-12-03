@@ -39,7 +39,7 @@ invalids d (start,end) = takeWhile (\x -> x <= end)
 -- it does this by just enumerating all invalid IDs of each 'duplication type', using the function above.
 allInvalids :: (Integer,Integer) -> [Integer]
 allInvalids (start,end) = nub $
-                          [2..numDigits end] >>= (\m -> invalids m (start,end))
+                            [2..numDigits end] >>= (\m -> invalids m (start,end))
 
 parseInput :: FilePath -> IO [(Integer,Integer)]
 parseInput file = do
@@ -57,7 +57,7 @@ main = do
   input <- parseInput "input.txt"
   putStrLn $
     "Part 1: " ++
-    show (sum . concat . map (invalids 2) $ input)
+    show (sum . concatMap (invalids 2) $ input)
   putStrLn $
     "Part 2: " ++
-    show (sum . concat . map allInvalids $ input)
+    show (sum . concatMap allInvalids $ input)
