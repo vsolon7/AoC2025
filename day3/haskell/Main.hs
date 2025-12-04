@@ -44,8 +44,7 @@ removeValley zxs@(Zipper (l:ls) x (r:rs)) =
 
 -- load a zipper with the first n elements of a list
 load :: Int -> [a] -> (Zipper a, [a])
-load n xs = let (first,last) = splitAt n xs
-            in (toZipper $ first, last)
+load n xs = let (first,last) = splitAt n xs in (toZipper $ first, last)
 
 maxjoltage' :: Ord a => Int -> [a] -> [a]
 maxjoltage' n xs = go (load n xs)
