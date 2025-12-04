@@ -1,4 +1,5 @@
 import Data.List
+import Data.Char
 
 -- abstract zipper stuff
 data Zipper a = Zipper [a] a [a]
@@ -15,14 +16,11 @@ toZipper (x:xs) = Zipper [] x xs
 fromZipper :: Zipper a -> [a]
 fromZipper (Zipper ls x rs) = reverse ls ++ [x] ++ rs
 
-resetZipper :: Zipper a -> Zipper a
-resetZipper = toZipper . fromZipper
-
 parseInput :: FilePath -> IO [[Int]]
 parseInput file = do
   input <- readFile file
   return $
-    map (map (read . (:[]))) . lines $ input
+    map (map digitToInt) . lines $ input
 
 -- remove the index of the first valley point starting from the focus point of the zipper, or the last
 -- element if no valley point exists.
