@@ -46,8 +46,8 @@ removeValley zxs@(Zipper (l:ls) x (r:rs)) =
 load :: Int -> [a] -> (Zipper a, [a])
 load n xs = let (first,last) = splitAt n xs in (toZipper $ first, last)
 
-maxjoltage' :: Ord a => Int -> [a] -> [a]
-maxjoltage' n xs = go (load n xs)
+maxjoltage :: Ord a => Int -> [a] -> [a]
+maxjoltage n xs = go (load n xs)
   where
     -- have to pay a cost of 1 traversal plus a partial reversal to convert from zipper to list
     go (zxs,[]) = fromZipper zxs
@@ -64,7 +64,7 @@ main = do
   banks <- parseInput "input.txt"
   putStrLn $
     "Part 1: " ++
-    show (sum . map (listToInt . (maxjoltage' 2)) $ banks)
+    show (sum . map (listToInt . (maxjoltage 2)) $ banks)
   putStrLn $
     "Part 2: " ++
-    show (sum . map (listToInt . (maxjoltage' 12)) $ banks)
+    show (sum . map (listToInt . (maxjoltage 12)) $ banks)
