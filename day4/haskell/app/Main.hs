@@ -38,8 +38,8 @@ inputToPSQ file = do
   -- go through an intermediate array
   let grid = listArray (Pos (0,0), Pos (_HEIGHT - 1,_WIDTH - 1)) flattened :: Array Pos Char
   return $
-    Prelude.foldr
-      (\pos psq -> case (numAdjacentRolls grid pos) of
+    Prelude.foldl'
+      (\psq pos -> case (numAdjacentRolls grid pos) of
         Nothing -> psq
         Just n  -> insert pos n psq)
       empty
@@ -50,8 +50,8 @@ removeLoneliestRoll psq =
   case findMin psq of
     Nothing -> psq
     Just loneliest -> let newpsq = deleteMin psq in
-      Prelude.foldr
-        (\pos lpsq -> adjust (\p -> p - 1) pos lpsq)
+      Prelude.foldl'
+        (\lpsq pos -> adjust (\p -> p - 1) pos lpsq)
         newpsq
         (neighborInds newpsq (key loneliest))
 
