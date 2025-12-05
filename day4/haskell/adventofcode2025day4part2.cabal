@@ -76,3 +76,5 @@ executable adventofcode2025day4part2
 
     -- Base language which the package is written in.
     default-language: GHC2021
+
+    ghc-options: -O2
