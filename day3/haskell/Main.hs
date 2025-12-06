@@ -44,7 +44,7 @@ removeValley (Zipper (l:ls) x [])
   | otherwise = Zipper ls l []
 removeValley zxs@(Zipper ls x (r:rs))
   -- r may become a peak after x is removed, so we move left by one unit
-  -- note: zleft (Zipper [] x rs) is just the identity, so this is not unsafe.
+  -- note: zleft (Zipper [] x rs) does nothing, so this isn't unsafe.
   | r > x = zleft (Zipper ls r rs)
   | otherwise = removeValley (zright zxs)
 
